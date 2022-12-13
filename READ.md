@@ -1,0 +1,1 @@
+API para cadastro de tarefas, alteração do status da mesma, criada com o objetivo de praticar meus estudos sobre rest api-flask

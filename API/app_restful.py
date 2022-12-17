@@ -38,14 +38,23 @@ class Tarefas(Resource):
         return response
 
     def put(self, id):
-        dados = json.loads(request.data)
-        tarefas_banco[id]['status'] = dados['status']
-        return dados
+        try:
+            dados = json.loads(request.data)
+            tarefas_banco[id] = dados
+            return tarefas_banco[id]
+        except IndexError:
+            mensagem = 'Tarefa de ID {} não existe'.format(id)
+            return {'Status':'Erro', 'Mensagem': mensagem}
 
     def delete(self, id):
-        tarefas_banco.pop(id)
-        mensagem = 'Tarefa de ID {} deletada com sucesso'.format(id)
-        return{'Status':'Sucesso', 'Mensagem': mensagem}
+        try:
+            tarefas_banco.pop(id)
+            mensagem = 'Tarefa {} excluída com sucesso!'.format(id)
+            response = {'Status':'Sucesso', 'Mensagem':mensagem}
+        except IndexError:
+            mensagem = 'Tarefa de ID {} não existe'.format(id)
+            response = {'Status':'Erro', 'Mensagem': mensagem}
+        return response
 
 #lista as tarefas e permite adicionar uma nova tarefa para a lista
 class lista_tarefas(Resource):

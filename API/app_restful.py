@@ -24,7 +24,7 @@ tarefas_banco = [
 ]
 
 
-#lista a tarefa por id, permite alterar o status da tarefa e deletar uma tarefa
+#lista a tarefa por id, permite alterar ou deletar uma tarefa
 class Tarefas(Resource):
     def get(self, id):
         try:
@@ -60,7 +60,7 @@ class Tarefas(Resource):
             response = {'Status':'Erro', 'Mensagem': mensagem}
         return response
 
-#lista as tarefas e permite adicionar uma nova tarefa para a lista
+#lista e permite adicionar uma nova tarefa para a lista
 class lista_tarefas(Resource):
     def get(self):
         return tarefas_banco

@@ -1,7 +1,7 @@
 from flask import Flask, request
 from flask_restful import Resource, Api
 import json
-from habilidades import Habilidades
+from habilidades import lista_habilidades, habilidades
 
 app = Flask(__name__)
 api = Api(app)
@@ -46,6 +46,10 @@ class Tarefas(Resource):
             mensagem = 'Tarefa de ID {} não existe'.format(id)
             return {'Status':'Erro', 'Mensagem': mensagem}
 
+        except Exception:
+            mensagem = 'Erro não indentificado, contatar o desenvolvedor da API'
+            return {'Status': 'Erro', 'Mensagem': mensagem}
+
     def delete(self, id):
         try:
             tarefas_banco.pop(id)
@@ -70,7 +74,9 @@ class lista_tarefas(Resource):
 
 api.add_resource(Tarefas, '/tarefas/<int:id>/')
 api.add_resource(lista_tarefas, '/tarefas/')
-api.add_resource(Habilidades, '/habilidades/')
+api.add_resource(lista_habilidades, '/habilidades/')
+api.add_resource(habilidades, '/habilidades/<int:id>/')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
